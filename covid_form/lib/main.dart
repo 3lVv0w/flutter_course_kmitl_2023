@@ -127,17 +127,17 @@ class _FormPageState extends State<FormPage> {
                     nickname = value;
                   }),
                 ),
-                TextFormField(
-                  key: Key("age-tag"),
-                  decoration: InputDecoration(
-                    labelText: 'อายุ',
-                  ),
-                  controller: _conAge,
-                  keyboardType: TextInputType.number,
-                  onSaved: (String? value) => setState(() {
-                    age = int.parse(value!);
-                  }),
-                ),
+                // TextFormField(
+                //   key: Key("age-tag"),
+                //   decoration: InputDecoration(
+                //     labelText: 'อายุ',
+                //   ),
+                //   controller: _conAge,
+                //   keyboardType: TextInputType.number,
+                //   onSaved: (String? value) => setState(() {
+                //     age = int.parse(value!);
+                //   }),
+                // ),
                 Text('เพศ'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -238,10 +238,17 @@ class _FormPageState extends State<FormPage> {
                       _isOption2 = false;
                       _isOption3 = false;
                       _isOption4 = false;
-                      Navigator.pushNamed(
+                      Navigator.push(
                         context,
-                        '',
-                        arguments: {},
+                        MaterialPageRoute(
+                          builder: (_) => ReportPage(
+                            firstname: firstname,
+                            lastname:  lastname,
+                            nickname: nickname,
+                            gender: gender,
+                            symtopms: selectedOptions,
+                          ),
+                        ),
                       );
                     }
                   },
@@ -275,6 +282,7 @@ class ReportPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(symtopms);
     return Scaffold(
       key: Key("report-page-tag"),
       appBar: AppBar(
@@ -290,7 +298,7 @@ class ReportPage extends StatelessWidget {
               width: 300,
               height: 300,
             ),
-            covidDetect(symtopms!),
+            covidDetect(symtopms ?? []),
           ],
         ),
       ),
